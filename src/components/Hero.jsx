@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import carImage from "../assets/car.png"; // 👈 make sure this exists
+import carImage from "../assets/car.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,29 +11,42 @@ const Hero = () => {
   const imageRef = useRef(null);
 
   useEffect(() => {
-    // reset refs (important)
     statsRef.current = [];
 
-    // 🎬 Headline animation (letters stagger)
-    gsap.from(titleRef.current.children, {
-      opacity: 0,
-      y: 60,
-      stagger: 0.05,
-      duration: 1,
-      ease: "power3.out",
-    });
+    // 🔤 Title animation
+    gsap.fromTo(
+      titleRef.current.children,
+      {
+        opacity: 0,
+        y: 60,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.05,
+        duration: 1,
+        ease: "power3.out",
+      }
+    );
 
     // 📊 Stats animation
-    gsap.from(statsRef.current, {
-      opacity: 0,
-      y: 30,
-      stagger: 0.2,
-      delay: 0.5,
-      duration: 0.8,
-      ease: "power2.out",
-    });
+    gsap.fromTo(
+      statsRef.current,
+      {
+        opacity: 0,
+        y: 30,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.2,
+        delay: 0.5,
+        duration: 0.8,
+        ease: "power2.out",
+      }
+    );
 
-    // 🚗 Scroll animation (SMOOTH)
+    // 🚗 Scroll animation
     gsap.to(imageRef.current, {
       y: 250,
       rotate: 8,
@@ -42,11 +55,10 @@ const Hero = () => {
         trigger: imageRef.current,
         start: "top bottom",
         end: "bottom top",
-        scrub: true, // 🔥 key for smooth scroll sync
+        scrub: true,
       },
     });
 
-    // cleanup
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
@@ -55,11 +67,12 @@ const Hero = () => {
   const text = "WELCOME ITZ FIZZ".split("");
 
   return (
-    <section className="h-screen flex flex-col justify-center items-center relative overflow-hidden px-4">
+    <section className="h-screen flex flex-col justify-center items-center relative overflow-hidden px-4 bg-black">
       
+      {/* 🔤 Title */}
       <h1
         ref={titleRef}
-        className="text-3xl md:text-6xl tracking-[0.5em] flex flex-wrap justify-center text-center"
+        className="text-white text-3xl md:text-6xl tracking-[0.5em] flex flex-wrap justify-center text-center z-20 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
       >
         {text.map((char, i) => (
           <span key={i}>
@@ -69,7 +82,7 @@ const Hero = () => {
       </h1>
 
       {/* 📊 Stats */}
-      <div className="flex gap-8 md:gap-12 mt-10 flex-wrap justify-center">
+      <div className="flex gap-8 md:gap-12 mt-10 flex-wrap justify-center text-white z-20">
         {[
           { value: "90%", label: "Performance" },
           { value: "85%", label: "Efficiency" },
@@ -90,12 +103,12 @@ const Hero = () => {
         ))}
       </div>
 
-      {/* 🚗 Image (from assets) */}
+      {/* 🚗 Car Image */}
       <img
         ref={imageRef}
         src={carImage}
         alt="car"
-        className="absolute bottom-5 w-64 md:w-96 object-contain pointer-events-none"
+        className="absolute bottom-5 w-64 md:w-96 object-contain pointer-events-none z-10"
       />
     </section>
   );
