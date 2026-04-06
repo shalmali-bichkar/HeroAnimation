@@ -11,14 +11,12 @@ const Hero = () => {
   const imageRef = useRef(null);
 
   useEffect(() => {
-    statsRef.current = [];
+    if (!titleRef.current || !imageRef.current) return;
 
+   
     gsap.fromTo(
       titleRef.current.children,
-      {
-        opacity: 0,
-        y: 60,
-      },
+      { opacity: 0, y: 60 },
       {
         opacity: 1,
         y: 0,
@@ -28,13 +26,9 @@ const Hero = () => {
       }
     );
 
-    
     gsap.fromTo(
       statsRef.current,
-      {
-        opacity: 0,
-        y: 30,
-      },
+      { opacity: 0, y: 30 },
       {
         opacity: 1,
         y: 0,
@@ -46,8 +40,8 @@ const Hero = () => {
     );
 
     gsap.to(imageRef.current, {
-      y: 250,
-      rotate: 8,
+      y: 200,
+      rotate: 5,
       ease: "none",
       scrollTrigger: {
         trigger: imageRef.current,
@@ -67,9 +61,10 @@ const Hero = () => {
   return (
     <section className="h-screen flex flex-col justify-center items-center relative overflow-hidden px-4 bg-black">
       
+  
       <h1
         ref={titleRef}
-        className="text-[#fff355] text-4xl md:text-6xl tracking-[0.5em] flex flex-wrap justify-center text-center z-20 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
+        className="text-[#fff355] text-4xl md:text-6xl tracking-[0.5em] flex flex-wrap justify-center text-center z-20"
       >
         {text.map((char, i) => (
           <span key={i}>
@@ -86,7 +81,7 @@ const Hero = () => {
         ].map((item, i) => (
           <div
             key={i}
-            ref={(el) => el && statsRef.current.push(el)}
+            ref={(el) => (statsRef.current[i] = el)} // ✅ FIXED
             className="text-center"
           >
             <h2 className="text-2xl md:text-3xl font-bold">
@@ -99,12 +94,11 @@ const Hero = () => {
         ))}
       </div>
 
-     
       <img
         ref={imageRef}
         src={logoImage}
-        alt="car"
-        className="absolute bottom-5 w-64 md:w-96 object-contain pointer-events-none z-10"
+        alt="logo"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 w-40 md:w-64 z-10"
       />
     </section>
   );
