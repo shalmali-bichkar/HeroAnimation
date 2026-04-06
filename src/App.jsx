@@ -3,9 +3,9 @@ import CardsSection from "./components/CardsSection";
 
 function App() {
   return (
-    <div className="bg-black text-white">
+    <div className="bg-[#fff355] text-black">
       <Hero />
-      <CardsSection /> {/* 👈 replace scroll section */}
+      <CardsSection /> 
     </div>
   );
 }

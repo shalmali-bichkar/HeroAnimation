@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import carImage from "../assets/car.png";
+import logoImage from "../assets/logo.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,7 +13,6 @@ const Hero = () => {
   useEffect(() => {
     statsRef.current = [];
 
-    // 🔤 Title animation
     gsap.fromTo(
       titleRef.current.children,
       {
@@ -29,7 +28,7 @@ const Hero = () => {
       }
     );
 
-    // 📊 Stats animation
+    
     gsap.fromTo(
       statsRef.current,
       {
@@ -46,7 +45,6 @@ const Hero = () => {
       }
     );
 
-    // 🚗 Scroll animation
     gsap.to(imageRef.current, {
       y: 250,
       rotate: 8,
@@ -69,10 +67,9 @@ const Hero = () => {
   return (
     <section className="h-screen flex flex-col justify-center items-center relative overflow-hidden px-4 bg-black">
       
-      {/* 🔤 Title */}
       <h1
         ref={titleRef}
-        className="text-white text-3xl md:text-6xl tracking-[0.5em] flex flex-wrap justify-center text-center z-20 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
+        className="text-[#fff355] text-4xl md:text-6xl tracking-[0.5em] flex flex-wrap justify-center text-center z-20 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
       >
         {text.map((char, i) => (
           <span key={i}>
@@ -81,7 +78,6 @@ const Hero = () => {
         ))}
       </h1>
 
-      {/* 📊 Stats */}
       <div className="flex gap-8 md:gap-12 mt-10 flex-wrap justify-center text-white z-20">
         {[
           { value: "90%", label: "Performance" },
@@ -103,10 +99,10 @@ const Hero = () => {
         ))}
       </div>
 
-      {/* 🚗 Car Image */}
+     
       <img
         ref={imageRef}
-        src={carImage}
+        src={logoImage}
         alt="car"
         className="absolute bottom-5 w-64 md:w-96 object-contain pointer-events-none z-10"
       />

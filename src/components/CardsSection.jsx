@@ -53,16 +53,16 @@ const CardsSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen bg-gray-900 flex flex-col items-center justify-center px-6 py-20"
+      className="min-h-screen bg-[#fff355] flex flex-col items-center justify-center px-6 py-20"
     >
-      <h2 className="text-4xl mb-12 text-white">Features</h2>
+      <h2 className="text-5xl font-semibold mb-12 text-black">Features</h2>
 
       <div className="grid md:grid-cols-3 gap-8 max-w-5xl">
         {cards.map((card, i) => (
           <div
             key={i}
             ref={(el) => el && cardsRef.current.push(el)}
-            className="bg-gray-800 p-6 rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            className="bg-black p-6 rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl text-white"
           >
             <h3 className="text-xl font-bold mb-3">
               {card.title}
